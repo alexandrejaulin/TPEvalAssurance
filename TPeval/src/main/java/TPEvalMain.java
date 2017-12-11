@@ -6,16 +6,64 @@ public class TPEvalMain
 	{
 		System.out.println("Que voulez vous faire cher Monsieur ?");
 		System.out.println("1 - Ajouter un client");
-		System.out.println("2 - Ajouter un contrat � un client");
-		System.out.println("3 - Quitter cette interface du futur");
+		System.out.println("2 - Ajouter un contrat à un client");
+		System.out.println("3 - Afficher la liste des clients");
+		System.out.println("4 - Quitter cette interface du futur");
 	}
 	
-	public static void ajouterClient()
+	public static void ajouterClient(CompagnieAssurance c)
 	{
 		String prenom,nom;
 		int j,m,a;
 		Scanner scanner =new Scanner(System.in);
+		System.out.println("Vous voulez donc ajouter une personne dans la compagnie");
+		System.out.println("Quel est son pénom ?");
+		prenom=scanner.nextLine();
+		System.out.println("Quel est son nom ?");
+		nom=scanner.nextLine();
+		System.out.println("Quel jour est il né ?");
+		j=scanner.nextInt();
+		System.out.println("Le mois ?");
+		m=scanner.nextInt();
+		System.out.println("L'année ?");
+		a=scanner.nextInt();
+		c.ajouterClient(new Personne(nom,prenom,j,m,a));
+		System.out.println("Cette personne a été ajoutée ! gg");
 		
+	}
+	
+	public static void ajouterContrat(CompagnieAssurance c)
+	{
+		int client,contrat;
+		Scanner scanner =new Scanner(System.in);
+		afficherClient(c);
+		System.out.println("A qui voulez vous ajouter un contrat ?");
+		System.out.print("Numéro du client : ");
+		client=scanner.nextInt();
+		System.out.println("");
+		System.out.println("1 - Auto");
+		System.out.println("2 - Prevoyance");
+		System.out.println("3 - MRH");
+		System.out.println("Quel type de contrat voulez vous lui souscrire ?");
+		System.out.print("Numéro du contrat : ");
+		contrat=scanner.nextInt();
+		switch(contrat)
+		{
+		case 1:c.client.get(client-1).creerContrat("Auto");break;
+		case 2:c.client.get(client-1).creerContrat("Prevoyance");break;
+		case 3:c.client.get(client-1).creerContrat("MRH");
+		}
+		
+	}
+	
+	public static void afficherClient(CompagnieAssurance c)
+	{
+		int i=1;
+		for(Personne p : c.client)
+		{
+			System.out.println(i+" "+p.toString());
+			i++;
+		}
 	}
 
 
@@ -48,14 +96,15 @@ public class TPEvalMain
 			input=scanner.nextInt();
 			switch (input) 
 			{
+			case 1 : ajouterClient(sKro);break;
+			case 2 : ajouterContrat(sKro);break;
+			case 3 : afficherClient(sKro);
 			
 			}
-	
-		
-
-		}while(input!=3);
+		}while(input!=4);
 		System.out.println("Au revoir cher Monsieur alors !");
 	}
 }
+
 
 
